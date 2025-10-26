@@ -148,12 +148,20 @@ lib_deps =
 
 ### WiFi do ESP32
 
-Configure as credenciais WiFi no `src/main.cpp`:
+O ESP32 funciona como **Access Point** (não se conecta a WiFi existente).
 
+**Configuração atual:**
 ```cpp
-const char* ssid = "SEU_WIFI";
-const char* password = "SENHA";
+WiFi.softAP("CoralVivoVR", "12345678");
 ```
+
+**Credenciais padrão:**
+- **SSID:** `CoralVivoVR`
+- **Senha:** `12345678`
+- **IP:** `192.168.4.1`
+- **Porta WebSocket:** `80`
+
+Para alterar, edite `src/main.cpp` linha ~60.
 
 ## 🎮 Uso
 

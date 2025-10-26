@@ -9,7 +9,9 @@
 - **LEDs:** WS2812B na porta 2 (16 LEDs)
 - **Botões:** Porta 4 (Player 1), Porta 5 (Player 2)
 - **WiFi:** Access Point "CoralVivoVR" (senha: 12345678)
+- **IP do ESP32:** 192.168.4.1
 - **WebSocket:** Porta 80
+- **Tipo de Rede:** Access Point (não se conecta a WiFi existente)
 
 ## 🎮 Mapa de LEDs
 ```
