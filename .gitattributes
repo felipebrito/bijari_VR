@@ -1,0 +1,12 @@
+# Otimizar tracking de arquivos binários grandes
+*.bin binary -diff
+*.elf binary -diff
+*.a binary -diff
+*.o binary -diff
+
+# Arquivos de vídeo (não rastrear eficientemente)
+*.mp4 binary -diff
+*.mov binary -diff
+*.avi binary -diff
+*.mkv binary -diff
+
