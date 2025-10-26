@@ -21,28 +21,28 @@ Ready Player 2: LED 7 (verde)
 
 ## 📡 Comandos WebSocket Implementados
 
-### Controle de Sessão
-- `play1` / `play2` - Iniciar sessão
-- `pause1` / `pause2` - Pausar sessão
-- `stop1` / `stop2` - Parar sessão e voltar ao ready
+### 📥 MENSAGENS RECEBIDAS (do Unity)
+- `vr_connected1` / `vr_connected2` - Unity conectado, enviar `ready1`/`ready2`
+- `percent1:X` - Progresso Player 1 (0-100%)
+- `percent2:X` - Progresso Player 2 (0-100%)
+- `video_ended1` / `video_ended2` - Vídeo terminou, limpar timeline e mostrar ready
 
-### Controle de Percentual
-- `percent1:X` - Player 1 (0-100%)
-- `percent2:X` - Player 2 (0-100%)
+### 📤 MENSAGENS ENVIADAS (para o Unity)
+- `button1` / `button2` - Botão físico pressionado (clique rápido <2s)
+- `long1` / `long2` - Botão pressionado por ≥2s (stop completo)
+- `ready1` / `ready2` - Player pronto/aguardando
 
-### Estados VR por Player
-- `vr_connected1` / `vr_connected2` - VR conectado
-- `vr_disconnected1` / `vr_disconnected2` - VR desconectado
-- `vr_hibernate1` / `vr_hibernate2` - VR hibernado
-- `vr_signal_lost1` / `vr_signal_lost2` - Perda de sinal
+### ⚠️ COMANDOS OBSOLETOS (não usar):
+- `play1`/`play2`, `pause1`/`pause2`, `stop1`/`stop2` - Substit wido por `button`/`long`
+- `vr_disconnected1`/`2` - ESP32 detecta automaticamente desconexão
+- `red1`/`2`, `blue1`/`2`, `green1`/`2`, `orange1`/`2` - Cores controladas automaticamente
 
-### Cores Diretas
-- `red1` / `red2` - LEDs vermelhos
-- `blue1` / `blue2` - LEDs azuis
-- `green1` / `green2` - LEDs verdes
-- `orange1` / `orange2` - LEDs laranja
-- `clear1` / `clear2` - Limpar LEDs do player
-- `clear` - Limpar todos os LEDs
+### 🎯 LÓGICA DO SISTEMA DUAL-PLAYER
+1. Unity envia `vr_connected{X}` → ESP32 responde com `ready{X}`
+2. Unity envia `percent{X}:Y` → ESP32 acende LEDs correspondentes ao progresso
+3. Botão físico pressionado → ESP32 envia `button{X}` para Unity
+4. Botão long press (≥2s) → ESP32 envia `long{X}` para Unity
+5. Unity termina vídeo → Unity envia `video_ended{X}` → ESP32 limpa timeline
 
 ## ⚡ Funcionalidades Principais
 

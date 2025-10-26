@@ -46,15 +46,27 @@ using Oculus.VR;
 /// 
 /// MENSAGENS ENVIADAS:
 /// - vr_connected{userNumber} : Indica conexão estabelecida
-/// - percent{userNumber}:X : Progresso do vídeo (1-100)
+/// - percent{userNumber}:X : Progresso do vídeo (0-100)
 /// - video_ended{userNumber} : Vídeo terminou naturalmente
 /// 
-/// MENSAGENS RECEBIDAS:
-/// - button{userNumber} : Botão pressionado (toggle play/pause)
-/// - long{userNumber} : Botão longo (stop completo)
-/// - ready{userNumber} : LED ready deve acender
-/// - vr_signal_lost{userNumber} : Perda de sinal detectada
-/// - vr_hibernate{userNumber} : VR hibernado
+/// MENSAGENS RECEBIDAS (do ESP32):
+/// - button{userNumber} : Botão físico pressionado - Toggle Play/Pause
+/// - long{userNumber} : Botão pressionado por >2s - Stop completo
+/// - ready{userNumber} : Confirma que está pronto/aguardando
+/// - vr_signal_lost{userNumber} : Conexão perdida - Pausa tudo
+/// - vr_hibernate{userNumber} : Headset hibernado - Pausa tudo
+/// - status{userNumber}:X : Status simulado (ignorado pelo Unity)
+/// 
+/// LÓGICA DO button{userNumber}:
+/// - Se vídeo está PLAYING → Pausa
+/// - Se vídeo está PAUSADO com tempo salvo → Retoma do ponto
+/// - Se vídeo está STOPPED (sem tempo) → Inicia novo vídeo
+/// 
+/// CONTROLES:
+/// - userNumber define se é Player 1 (1) ou Player 2 (2)
+/// - Cada player tem timecode independente via Dictionary
+/// - Reconexão automática se conexão cair
+/// - Modo offline disponível com autostart
 /// 
 /// CONFIGURAÇÃO NECESSÁRIA:
 /// 1. Defina userNumber no Inspector (1 ou 2)
